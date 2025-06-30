@@ -245,7 +245,7 @@
       font-size: 1rem !important;
       line-height: 1.4 !important;
       font-family: 'Courier New', monospace !important;
-      height: 120px !important;
+      height: 140px !important;
     }
 
     .backlit-showcase-wrapper .copy-button {
@@ -290,7 +290,7 @@
       flex-wrap: wrap !important;
       gap: 10px !important;
       margin-top: 8px !important;
-      justify-content: space-between !important;
+      justify-content: center !important;
     }
     
     .backlit-showcase-wrapper .material-name {
@@ -676,10 +676,11 @@
 
           <div class="requirements-group">
             <label for="requirementsOutput">Copy&paste to "Add your personalization" box:</label>
-            <textarea id="requirementsOutput" rows="6" placeholder="Customer requirements will appear here...">1.Your Numbers or letters: BACKLIT SIGN
+            <textarea id="requirementsOutput" rows="7" placeholder="Customer requirements will appear here...">1.Your Numbers or letters: BACKLIT SIGN
 2.Light Color Num: #1
 3.Face Color: #1
-4.Font Num: </textarea>
+4.Font Num: 
+5.Phone Num: </textarea>
             <button class="copy-button" onclick="copyRequirements()">Copy</button>
           </div>
           
@@ -784,19 +785,24 @@
       'normal-white': 'rgba(255, 255, 255, 0.9)'
     };
 
-    // Update requirements text - 保留已输入的Font Num内容
+    // Update requirements text - 保留已输入的Font Num和Phone Num内容
     function updateRequirements() {
       const text = textInput.value || "BACKLIT SIGN";
       const currentRequirements = requirementsOutput.value;
       
       // 提取当前Font Num后的内容
-      const fontNumMatch = currentRequirements.match(/4\.Font Num: (.*)$/m);
+      const fontNumMatch = currentRequirements.match(/4\.Font Num: (.*?)(?=\n|$)/m);
       const existingFontNum = fontNumMatch ? fontNumMatch[1] : selectedFontNumber;
+      
+      // 提取当前Phone Num后的内容，保持不变
+      const phoneNumMatch = currentRequirements.match(/5\.Phone Num: (.*?)(?=\n|$)/m);
+      const existingPhoneNum = phoneNumMatch ? phoneNumMatch[1] : "";
       
       const requirements = `1.Your Numbers or letters: ${text}
 2.Light Color Num: #${currentLightNumber}
 3.Face Color: #${currentMaterialNumber}
-4.Font Num: ${existingFontNum}`;
+4.Font Num: ${existingFontNum}
+5.Phone Num: ${existingPhoneNum}`;
       requirementsOutput.value = requirements;
     }
 
@@ -859,7 +865,14 @@
           
           // Update selected font number with #
           selectedFontNumber = `#${index + 1}`;
-          updateRequirements();
+          
+          // 实时更新文本框中的Font Num
+          const currentRequirements = requirementsOutput.value;
+          const updatedRequirements = currentRequirements.replace(
+            /4\.Font Num: (.*?)(?=\n|$)/m, 
+            `4.Font Num: ${selectedFontNumber}`
+          );
+          requirementsOutput.value = updatedRequirements;
         });
         
         fontDiv.appendChild(textDiv);
