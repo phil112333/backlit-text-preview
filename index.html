@@ -185,7 +185,7 @@
       border-radius: 15px !important;
       padding: 20px !important;
       margin: 0 auto 15px !important;
-      max-width: 1200px !important;
+      max-width: 1400px !important;
       width: 95% !important;
       border: 1px solid rgba(255, 255, 255, 0.1) !important;
       flex-shrink: 0 !important;
@@ -193,8 +193,8 @@
     
     .backlit-showcase-wrapper .control-group {
       display: grid !important;
-      grid-template-columns: 1fr 1fr 1fr 1fr !important;
-      gap: 25px !important;
+      grid-template-columns: 1fr 1.5fr 1fr 1fr !important;
+      gap: 30px !important;
       align-items: start !important;
     }
     
@@ -245,6 +245,7 @@
       font-size: 1rem !important;
       line-height: 1.4 !important;
       font-family: 'Courier New', monospace !important;
+      height: 120px !important;
     }
 
     .backlit-showcase-wrapper .copy-button {
@@ -289,13 +290,13 @@
       flex-wrap: wrap !important;
       gap: 10px !important;
       margin-top: 8px !important;
-      justify-content: center !important;
+      justify-content: space-between !important;
     }
     
     .backlit-showcase-wrapper .material-name {
       width: 26px !important;
       text-align: center !important;
-      font-size: 0.55rem !important;
+      font-size: 0.60rem !important;
       color: #999 !important;
       font-weight: 500 !important;
       line-height: 1.1 !important;
@@ -674,12 +675,12 @@
           </div>
 
           <div class="requirements-group">
-            <label for="requirementsOutput">Customer Requirements:</label>
-            <textarea id="requirementsOutput" rows="4" placeholder="Customer requirements will appear here...">1.Your Numbers or letters: BACKLIT SIGN
-2.Light Color Num.: 1
-3.Face Color: 1
-4.Font Num.: </textarea>
-            <button class="copy-button" onclick="copyRequirements()">Copy Requirements</button>
+            <label for="requirementsOutput">Copy&paste to "Add your personalization" box:</label>
+            <textarea id="requirementsOutput" rows="6" placeholder="Customer requirements will appear here...">1.Your Numbers or letters: BACKLIT SIGN
+2.Light Color Num: #1
+3.Face Color: #1
+4.Font Num: </textarea>
+            <button class="copy-button" onclick="copyRequirements()">Copy</button>
           </div>
           
           <div class="light-group">
@@ -697,7 +698,7 @@
           </div>
           
           <div class="material-group">
-            <label>Face Color Select:</label>
+            <label style="font-size: 1.1rem !important;">Face Color Select:</label>
             <div class="selection-numbers">
               <div class="selection-number">#1</div>
               <div class="selection-number">#2</div>
@@ -783,13 +784,19 @@
       'normal-white': 'rgba(255, 255, 255, 0.9)'
     };
 
-    // Update requirements text
+    // Update requirements text - 保留已输入的Font Num内容
     function updateRequirements() {
       const text = textInput.value || "BACKLIT SIGN";
+      const currentRequirements = requirementsOutput.value;
+      
+      // 提取当前Font Num后的内容
+      const fontNumMatch = currentRequirements.match(/4\.Font Num: (.*)$/m);
+      const existingFontNum = fontNumMatch ? fontNumMatch[1] : selectedFontNumber;
+      
       const requirements = `1.Your Numbers or letters: ${text}
-2.Light Color Num.: ${currentLightNumber}
-3.Face Color: ${currentMaterialNumber}
-4.Font Num.: ${selectedFontNumber}`;
+2.Light Color Num: #${currentLightNumber}
+3.Face Color: #${currentMaterialNumber}
+4.Font Num: ${existingFontNum}`;
       requirementsOutput.value = requirements;
     }
 
@@ -850,8 +857,8 @@
           // Add selected class to clicked item
           fontDiv.classList.add('selected');
           
-          // Update selected font number
-          selectedFontNumber = index + 1;
+          // Update selected font number with #
+          selectedFontNumber = `#${index + 1}`;
           updateRequirements();
         });
         
