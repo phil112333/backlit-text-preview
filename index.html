@@ -193,14 +193,15 @@
     
     .backlit-showcase-wrapper .control-group {
       display: grid !important;
-      grid-template-columns: 1fr 1fr 1fr !important;
+      grid-template-columns: 1fr 1fr 1fr 1fr !important;
       gap: 25px !important;
       align-items: start !important;
     }
     
     .backlit-showcase-wrapper .input-group,
     .backlit-showcase-wrapper .light-group,
-    .backlit-showcase-wrapper .material-group {
+    .backlit-showcase-wrapper .material-group,
+    .backlit-showcase-wrapper .requirements-group {
       min-width: 200px !important;
     }
     
@@ -213,7 +214,8 @@
       text-align: center !important;
     }
     
-    .backlit-showcase-wrapper #textInput {
+    .backlit-showcase-wrapper #textInput,
+    .backlit-showcase-wrapper #requirementsOutput {
       width: 100% !important;
       padding: 12px 15px !important;
       font-size: 1.1rem !important;
@@ -227,12 +229,43 @@
       font-family: inherit !important;
     }
     
-    .backlit-showcase-wrapper #textInput:focus {
+    .backlit-showcase-wrapper #textInput:focus,
+    .backlit-showcase-wrapper #requirementsOutput:focus {
       border-color: #888 !important;
     }
     
-    .backlit-showcase-wrapper #textInput::placeholder {
+    .backlit-showcase-wrapper #textInput::placeholder,
+    .backlit-showcase-wrapper #requirementsOutput::placeholder {
       color: #999 !important;
+    }
+
+    .backlit-showcase-wrapper #requirementsOutput {
+      background: rgba(40, 60, 40, 0.9) !important;
+      border: 2px solid #4a7c59 !important;
+      font-size: 1rem !important;
+      line-height: 1.4 !important;
+      font-family: 'Courier New', monospace !important;
+    }
+
+    .backlit-showcase-wrapper .copy-button {
+      background: #4a7c59 !important;
+      color: white !important;
+      border: none !important;
+      padding: 8px 15px !important;
+      border-radius: 6px !important;
+      cursor: pointer !important;
+      font-size: 0.9rem !important;
+      margin-top: 8px !important;
+      width: 100% !important;
+      transition: background 0.3s ease !important;
+    }
+
+    .backlit-showcase-wrapper .copy-button:hover {
+      background: #5a8c69 !important;
+    }
+
+    .backlit-showcase-wrapper .copy-button:active {
+      background: #3a6c49 !important;
     }
     
     .backlit-showcase-wrapper .selection-numbers {
@@ -309,7 +342,7 @@
     
     /* 添加黑色勾勾效果 */
     .backlit-showcase-wrapper .selection-box.active::after {
-      content: '?' !important;
+      content: '✓' !important;
       position: absolute !important;
       top: 50% !important;
       left: 50% !important;
@@ -416,6 +449,19 @@
       display: flex !important;
       align-items: center !important;
       gap: 15px !important;
+      cursor: pointer !important;
+      padding: 10px !important;
+      border-radius: 8px !important;
+      transition: background-color 0.3s ease !important;
+    }
+
+    .backlit-showcase-wrapper .font-item:hover {
+      background-color: rgba(255, 255, 255, 0.05) !important;
+    }
+
+    .backlit-showcase-wrapper .font-item.selected {
+      background-color: rgba(255, 255, 255, 0.1) !important;
+      border: 2px solid rgba(255, 255, 255, 0.3) !important;
     }
     
     .backlit-showcase-wrapper .font-number {
@@ -574,7 +620,7 @@
     /* Mobile Responsive */
     @media (max-width: 1024px) {
       .backlit-showcase-wrapper .control-group {
-        grid-template-columns: 1fr !important;
+        grid-template-columns: 1fr 1fr !important;
         gap: 20px !important;
       }
       
@@ -585,6 +631,11 @@
     }
 
     @media (max-width: 768px) {
+      .backlit-showcase-wrapper .control-group {
+        grid-template-columns: 1fr !important;
+        gap: 15px !important;
+      }
+
       .backlit-showcase-wrapper #fontList {
         grid-template-columns: 1fr !important;
         gap: 20px !important;
@@ -621,6 +672,15 @@
             <label for="textInput">Enter Text:</label>
             <textarea id="textInput" placeholder="Type your text here..." rows="2">BACKLIT SIGN</textarea>
           </div>
+
+          <div class="requirements-group">
+            <label for="requirementsOutput">Customer Requirements:</label>
+            <textarea id="requirementsOutput" rows="4" placeholder="Customer requirements will appear here...">1.Your Numbers or letters: BACKLIT SIGN
+2.Light Color Num.: 1
+3.Face Color: 1
+4.Font Num.: </textarea>
+            <button class="copy-button" onclick="copyRequirements()">Copy Requirements</button>
+          </div>
           
           <div class="light-group">
             <label>Select Light Color:</label>
@@ -630,9 +690,9 @@
               <div class="selection-number">#3</div>
             </div>
             <div class="selection-boxes">
-              <div class="selection-box light-box active" data-light="normal-white" title="White"></div>
-              <div class="selection-box light-box" data-light="warm-white" title="Warm White"></div>
-              <div class="selection-box light-box" data-light="cold-white" title="Cold White"></div>
+              <div class="selection-box light-box active" data-light="normal-white" data-number="1" title="White"></div>
+              <div class="selection-box light-box" data-light="warm-white" data-number="2" title="Warm White"></div>
+              <div class="selection-box light-box" data-light="cold-white" data-number="3" title="Cold White"></div>
             </div>
           </div>
           
@@ -648,13 +708,13 @@
               <div class="selection-number">#7</div>
             </div>
             <div class="selection-boxes">
-              <div class="selection-box material-box active" data-material="matte-black" title="Matte Black"></div>
-              <div class="selection-box material-box" data-material="matte-white" title="Matte White"></div>
-              <div class="selection-box material-box" data-material="brushed-gold" title="Brushed Gold"></div>
-              <div class="selection-box material-box" data-material="brushed-silver" title="Brushed Silver"></div>
-              <div class="selection-box material-box" data-material="mirror-gold" title="Mirror Gold"></div>
-              <div class="selection-box material-box" data-material="mirror-silver" title="Mirror Silver"></div>
-              <div class="selection-box material-box" data-material="matte-gray" title="Matte Gray"></div>
+              <div class="selection-box material-box active" data-material="matte-black" data-number="1" title="Matte Black"></div>
+              <div class="selection-box material-box" data-material="matte-white" data-number="2" title="Matte White"></div>
+              <div class="selection-box material-box" data-material="brushed-gold" data-number="3" title="Brushed Gold"></div>
+              <div class="selection-box material-box" data-material="brushed-silver" data-number="4" title="Brushed Silver"></div>
+              <div class="selection-box material-box" data-material="mirror-gold" data-number="5" title="Mirror Gold"></div>
+              <div class="selection-box material-box" data-material="mirror-silver" data-number="6" title="Mirror Silver"></div>
+              <div class="selection-box material-box" data-material="matte-gray" data-number="7" title="Matte Gray"></div>
             </div>
             <div class="material-names">
               <div class="material-name">Matte<br>Black</div>
@@ -706,11 +766,15 @@
     
     const fontListContainer = document.getElementById("fontList");
     const textInput = document.getElementById("textInput");
+    const requirementsOutput = document.getElementById("requirementsOutput");
     const lightBoxes = document.querySelectorAll(".light-box");
     const materialBoxes = document.querySelectorAll(".material-box");
     
     let currentLight = "normal-white";
+    let currentLightNumber = "1";
     let currentMaterial = "matte-black";
+    let currentMaterialNumber = "1";
+    let selectedFontNumber = "";
     
     // Light color configurations - 增强灯光亮度
     const lightConfig = {
@@ -718,7 +782,33 @@
       'warm-white': 'rgba(255, 230, 179, 0.9)', 
       'normal-white': 'rgba(255, 255, 255, 0.9)'
     };
-    
+
+    // Update requirements text
+    function updateRequirements() {
+      const text = textInput.value || "BACKLIT SIGN";
+      const requirements = `1.Your Numbers or letters: ${text}
+2.Light Color Num.: ${currentLightNumber}
+3.Face Color: ${currentMaterialNumber}
+4.Font Num.: ${selectedFontNumber}`;
+      requirementsOutput.value = requirements;
+    }
+
+    // Copy requirements function
+    function copyRequirements() {
+      requirementsOutput.select();
+      requirementsOutput.setSelectionRange(0, 99999);
+      navigator.clipboard.writeText(requirementsOutput.value).then(() => {
+        const button = document.querySelector('.copy-button');
+        const originalText = button.textContent;
+        button.textContent = 'Copied!';
+        button.style.background = '#5a8c69';
+        setTimeout(() => {
+          button.textContent = originalText;
+          button.style.background = '#4a7c59';
+        }, 2000);
+      });
+    }
+
     // Render fonts function
     function renderFonts() {
       const text = textInput.value || "BACKLIT SIGN";
@@ -729,6 +819,7 @@
       fonts.forEach((font, index) => {
         const fontDiv = document.createElement("div");
         fontDiv.classList.add("font-item");
+        fontDiv.setAttribute("data-font-number", index + 1);
         
         const numberDiv = document.createElement("div");
         numberDiv.classList.add("font-number");
@@ -748,6 +839,21 @@
           `drop-shadow(0 0 1px ${lightColor}) drop-shadow(0 0 2px ${lightColor}) drop-shadow(0 0 3px ${lightColor})`, 
           'important'
         );
+
+        // Add click event for font selection
+        fontDiv.addEventListener('click', function() {
+          // Remove selected class from all font items
+          document.querySelectorAll('.font-item').forEach(item => {
+            item.classList.remove('selected');
+          });
+          
+          // Add selected class to clicked item
+          fontDiv.classList.add('selected');
+          
+          // Update selected font number
+          selectedFontNumber = index + 1;
+          updateRequirements();
+        });
         
         fontDiv.appendChild(textDiv);
         fontListContainer.appendChild(fontDiv);
@@ -782,6 +888,7 @@
     let inputTimeout;
     textInput.addEventListener("input", function() {
       console.log('Text input changed');
+      updateRequirements();
       clearTimeout(inputTimeout);
       inputTimeout = setTimeout(() => {
         renderFonts();
@@ -795,8 +902,10 @@
         lightBoxes.forEach(box => box.classList.remove("active"));
         lightBox.classList.add("active");
         currentLight = lightBox.getAttribute("data-light");
-        console.log('Light changed to:', currentLight);
+        currentLightNumber = lightBox.getAttribute("data-number");
+        console.log('Light changed to:', currentLight, 'number:', currentLightNumber);
         
+        updateRequirements();
         setTimeout(() => {
           updateEffects();
         }, 50);
@@ -810,8 +919,10 @@
         materialBoxes.forEach(box => box.classList.remove("active"));
         materialBox.classList.add("active");
         currentMaterial = materialBox.getAttribute("data-material");
-        console.log('Material changed to:', currentMaterial);
+        currentMaterialNumber = materialBox.getAttribute("data-number");
+        console.log('Material changed to:', currentMaterial, 'number:', currentMaterialNumber);
         
+        updateRequirements();
         setTimeout(() => {
           updateEffects();
         }, 50);
@@ -832,6 +943,7 @@
     // Initialize function
     function initializeBacklitPreview() {
       console.log('Initializing backlit preview...');
+      updateRequirements();
       renderFonts();
       
       // Mobile specific initialization
@@ -865,6 +977,9 @@
         setTimeout(forceRender, 300);
       });
     }
+
+    // Make copyRequirements function globally available
+    window.copyRequirements = copyRequirements;
   </script>
 </body>
 </html>
