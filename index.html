@@ -239,13 +239,78 @@
       color: #999 !important;
     }
 
+    .backlit-showcase-wrapper .orientation-group {
+      margin-top: 10px !important;
+    }
+
+    .backlit-showcase-wrapper .orientation-options {
+      display: flex !important;
+      gap: 5px !important;
+      justify-content: center !important;
+    }
+
+    .backlit-showcase-wrapper .orientation-option {
+      padding: 6px 15px !important;
+      background: rgba(60, 60, 60, 0.8) !important;
+      border: 2px solid rgba(255, 255, 255, 0.3) !important;
+      border-radius: 6px !important;
+      color: #ccc !important;
+      cursor: pointer !important;
+      font-size: 0.9rem !important;
+      transition: all 0.3s ease !important;
+      font-weight: 500 !important;
+    }
+
+    .backlit-showcase-wrapper .orientation-option:hover {
+      border-color: rgba(255, 255, 255, 0.6) !important;
+      background: rgba(80, 80, 80, 0.9) !important;
+    }
+
+    .backlit-showcase-wrapper .orientation-option.active {
+      background: rgba(255, 255, 255, 0.15) !important;
+      border-color: #ffffff !important;
+      color: #ffffff !important;
+      font-weight: 600 !important;
+    }
+
+    .backlit-showcase-wrapper .font-name.vertical-text {
+      writing-mode: vertical-rl !important;
+      text-orientation: upright !important;
+      height: auto !important;
+      min-height: 200px !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      white-space: nowrap !important;
+      overflow: visible !important;
+      letter-spacing: -0.1em !important;
+    }
+
+    /* 水平模式下#1字体间距调宽 */
+    .backlit-showcase-wrapper .font-name.font-1:not(.vertical-text) {
+      letter-spacing: 0.15em !important;
+    }
+
+    /* 垂直模式下特定字体间距调窄 */
+    .backlit-showcase-wrapper .font-name.vertical-text.font-2,
+    .backlit-showcase-wrapper .font-name.vertical-text.font-3,
+    .backlit-showcase-wrapper .font-name.vertical-text.font-8,
+    .backlit-showcase-wrapper .font-name.vertical-text.font-9,
+    .backlit-showcase-wrapper .font-name.vertical-text.font-12,
+    .backlit-showcase-wrapper .font-name.vertical-text.font-15,
+    .backlit-showcase-wrapper .font-name.vertical-text.font-17,
+    .backlit-showcase-wrapper .font-name.vertical-text.font-20,
+    .backlit-showcase-wrapper .font-name.vertical-text.font-22 {
+      letter-spacing: -0.2em !important;
+    }
+
     .backlit-showcase-wrapper #requirementsOutput {
       background: rgba(40, 60, 40, 0.9) !important;
       border: 2px solid #4a7c59 !important;
       font-size: 1rem !important;
       line-height: 1.4 !important;
       font-family: 'Courier New', monospace !important;
-      height: 140px !important;
+      height: 160px !important;
     }
 
     .backlit-showcase-wrapper .copy-button {
@@ -672,15 +737,23 @@
           <div class="input-group">
             <label for="textInput">Enter Text:</label>
             <textarea id="textInput" placeholder="Type your text here..." rows="2">BACKLIT SIGN</textarea>
+            
+            <div class="orientation-group">
+              <div class="orientation-options">
+                <div class="orientation-option active" data-orientation="horizontal">Horizontal</div>
+                <div class="orientation-option" data-orientation="vertical">Vertical</div>
+              </div>
+            </div>
           </div>
 
           <div class="requirements-group">
             <label for="requirementsOutput">Copy&paste to "Add your personalization" box:</label>
-            <textarea id="requirementsOutput" rows="7" placeholder="Customer requirements will appear here...">1.Your Numbers or letters: BACKLIT SIGN
+            <textarea id="requirementsOutput" rows="8" placeholder="Customer requirements will appear here...">1.Your Numbers or letters: BACKLIT SIGN
 2.Light Color Num: #1
 3.Face Color: #1
 4.Font Num: 
-5.Phone Num: </textarea>
+5.Installation: Horizontal
+6.Phone Num: </textarea>
             <button class="copy-button" onclick="copyRequirements()">Copy</button>
           </div>
           
@@ -771,12 +844,14 @@
     const requirementsOutput = document.getElementById("requirementsOutput");
     const lightBoxes = document.querySelectorAll(".light-box");
     const materialBoxes = document.querySelectorAll(".material-box");
+    const orientationOptions = document.querySelectorAll(".orientation-option");
     
     let currentLight = "normal-white";
     let currentLightNumber = "1";
     let currentMaterial = "matte-black";
     let currentMaterialNumber = "1";
     let selectedFontNumber = "";
+    let currentOrientation = "horizontal";
     
     // Light color configurations - 增强灯光亮度
     const lightConfig = {
@@ -794,15 +869,19 @@
       const fontNumMatch = currentRequirements.match(/4\.Font Num: (.*?)(?=\n|$)/m);
       const existingFontNum = fontNumMatch ? fontNumMatch[1] : selectedFontNumber;
       
+      // 获取当前方向
+      const installationText = currentOrientation === "vertical" ? "Vertical" : "Horizontal";
+      
       // 提取当前Phone Num后的内容，保持不变
-      const phoneNumMatch = currentRequirements.match(/5\.Phone Num: (.*?)(?=\n|$)/m);
+      const phoneNumMatch = currentRequirements.match(/6\.Phone Num: (.*?)(?=\n|$)/m);
       const existingPhoneNum = phoneNumMatch ? phoneNumMatch[1] : "";
       
       const requirements = `1.Your Numbers or letters: ${text}
 2.Light Color Num: #${currentLightNumber}
 3.Face Color: #${currentMaterialNumber}
 4.Font Num: ${existingFontNum}
-5.Phone Num: ${existingPhoneNum}`;
+5.Installation: ${installationText}
+6.Phone Num: ${existingPhoneNum}`;
       requirementsOutput.value = requirements;
     }
 
@@ -841,6 +920,9 @@
         
         const textDiv = document.createElement("div");
         textDiv.classList.add("font-name", `font-${index + 1}`, `material-${currentMaterial}`);
+        if (currentOrientation === "vertical") {
+          textDiv.classList.add("vertical-text");
+        }
         textDiv.textContent = text;
         
         // Apply font family
@@ -945,6 +1027,22 @@
         updateRequirements();
         setTimeout(() => {
           updateEffects();
+        }, 50);
+      });
+    });
+
+    // Orientation selection events
+    orientationOptions.forEach(orientationOption => {
+      orientationOption.addEventListener("click", (e) => {
+        console.log('Orientation option clicked:', e.target);
+        orientationOptions.forEach(option => option.classList.remove("active"));
+        orientationOption.classList.add("active");
+        currentOrientation = orientationOption.getAttribute("data-orientation");
+        console.log('Orientation changed to:', currentOrientation);
+        
+        updateRequirements();
+        setTimeout(() => {
+          renderFonts();
         }, 50);
       });
     });
