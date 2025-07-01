@@ -8,29 +8,44 @@
   <style>
     /* Load custom fonts from GitHub */
     @font-face {
+      font-family: 'Artnoova';
+      src: url('https://raw.githubusercontent.com/phil112333/backlit-fonts/main/Artnoova-Regular.woff2') format('woff2');
+    }
+    @font-face {
+      font-family: 'ClarendonBT Black';
+      src: url('https://raw.githubusercontent.com/phil112333/backlit-fonts/main/ClarendonBT-Black.woff2') format('woff2');
+    }
+    @font-face {
+      font-family: 'DIN Bold';
+      src: url('https://raw.githubusercontent.com/phil112333/backlit-fonts/main/DINBoldDINBold.woff2') format('woff2');
+    }
+    @font-face {
+      font-family: 'Exotic350BT Bold';
+      src: url('https://raw.githubusercontent.com/phil112333/backlit-fonts/main/Exotic350BT-Bold.woff2') format('woff2');
+    }
+    @font-face {
+      font-family: 'Swiss721BT Heavy';
+      src: url('https://raw.githubusercontent.com/phil112333/backlit-fonts/main/Swiss721BT-Heavy.woff2') format('woff2');
+    }
+    @font-face {
+      font-family: 'AlfaSlabOne';
+      src: url('https://raw.githubusercontent.com/phil112333/backlit-fonts/main/AlfaSlabOne.woff2') format('woff2');
+    }
+    @font-face {
+      font-family: 'Righteous';
+      src: url('https://raw.githubusercontent.com/phil112333/backlit-fonts/main/Righteous-Regular.woff2') format('woff2');
+    }
+    @font-face {
+      font-family: 'RobotoDraft Bold';
+      src: url('https://raw.githubusercontent.com/phil112333/backlit-fonts/main/RobotoDraft-Bold.woff2') format('woff2');
+    }
+    @font-face {
       font-family: 'DigitMono';
       src: url('https://raw.githubusercontent.com/phil112333/backlit-fonts/main/01DigitMono.woff2') format('woff2');
     }
     @font-face {
-      font-family: 'Abril Fatface';
-      src: url('https://raw.githubusercontent.com/phil112333/backlit-fonts/main/AbrilFatface-Regular.woff2') format('woff2');
-    }
-    @font-face {
-      font-family: 'Alfa Slab One';
-      src: url('https://raw.githubusercontent.com/phil112333/backlit-fonts/main/AlfaSlabOne.woff2') format('woff2');
-    }
-    @font-face {
-      font-family: 'Andada Pro';
-      src: url('https://raw.githubusercontent.com/phil112333/backlit-fonts/main/AndadaPro-Italic.woff2') format('woff2');
-      font-style: italic;
-    }
-    @font-face {
       font-family: 'Audiowide';
       src: url('https://raw.githubusercontent.com/phil112333/backlit-fonts/main/Audiowide-Regular.woff2') format('woff2');
-    }
-    @font-face {
-      font-family: 'Avant Garde';
-      src: url('https://raw.githubusercontent.com/phil112333/backlit-fonts/main/AvantGarde.woff2') format('woff2');
     }
     @font-face {
       font-family: 'Bauhaus';
@@ -43,10 +58,6 @@
     @font-face {
       font-family: 'Bowlby One SC';
       src: url('https://raw.githubusercontent.com/phil112333/backlit-fonts/main/BowlbyOneSC-Regular.woff2') format('woff2');
-    }
-    @font-face {
-      font-family: 'Caveat Brush';
-      src: url('https://raw.githubusercontent.com/phil112333/backlit-fonts/main/CaveatBrush-Regular.woff2') format('woff2');
     }
     @font-face {
       font-family: 'Damion';
@@ -65,33 +76,12 @@
       src: url('https://raw.githubusercontent.com/phil112333/backlit-fonts/main/GaliverSansObliques.woff2') format('woff2');
     }
     @font-face {
-      font-family: 'Gloria Hallelujah';
-      src: url('https://raw.githubusercontent.com/phil112333/backlit-fonts/main/GloriaHallelujah.woff2') format('woff2');
-    }
-    @font-face {
-      font-family: 'Lobster';
-      src: url('https://raw.githubusercontent.com/phil112333/backlit-fonts/main/Lobster14.woff2') format('woff2');
-    }
-    @font-face {
       font-family: 'Luckiest Guy';
       src: url('https://raw.githubusercontent.com/phil112333/backlit-fonts/main/LuckiestGuy-Regular.woff2') format('woff2');
     }
     @font-face {
-      font-family: 'Omega Sans';
-      src: url('https://raw.githubusercontent.com/phil112333/backlit-fonts/main/OmegaSans-Regular.woff2') format('woff2');
-    }
-    @font-face {
       font-family: 'Pacifico';
       src: url('https://raw.githubusercontent.com/phil112333/backlit-fonts/main/Pacifico.woff2') format('woff2');
-    }
-    @font-face {
-      font-family: 'Righteous';
-      src: url('https://raw.githubusercontent.com/phil112333/backlit-fonts/main/Righteous-Regular.woff2') format('woff2');
-    }
-    @font-face {
-      font-family: 'Roboto Draft';
-      src: url('https://raw.githubusercontent.com/phil112333/backlit-fonts/main/RobotoDraft-Bold.woff2') format('woff2');
-      font-weight: bold;
     }
     @font-face {
       font-family: 'Sigmar One';
@@ -729,7 +719,7 @@
     <div class="backlit-container">
       <header>
         <h1>Backlit Sign Effect Showcase</h1>
-        <p class="subtitle">Enter any text and choose light color & material to see it in 24 different professional fonts</p>
+        <p class="subtitle">Enter any text and choose light color & material to see it in 22 different professional fonts</p>
       </header>
       
       <div class="controls">
@@ -811,29 +801,27 @@
   </div>
 
   <script>
-    // 24 Professional fonts from GitHub
+    // 22 Professional fonts from GitHub (new fonts added to front, specified fonts removed)
     const fonts = [
+      'Artnoova',
+      'ClarendonBT Black',
+      'DIN Bold',
+      'Exotic350BT Bold',
+      'Swiss721BT Heavy',
+      'AlfaSlabOne',
+      'Righteous',
+      'RobotoDraft Bold',
       'DigitMono',
-      'Abril Fatface', 
-      'Alfa Slab One',
-      'Andada Pro',
       'Audiowide',
-      'Avant Garde',
       'Bauhaus',
       'Bebas Neue',
       'Bowlby One SC',
-      'Caveat Brush',
       'Damion',
       'Fredoka One',
       'Fugaz One',
       'Galiver Sans',
-      'Gloria Hallelujah',
-      'Lobster',
       'Luckiest Guy',
-      'Omega Sans',
       'Pacifico',
-      'Righteous',
-      'Roboto Draft',
       'Sigmar One',
       'Stone Walls',
       'Typo PRO Roboto'
