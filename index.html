@@ -726,7 +726,7 @@
         <div class="control-group">
           <div class="input-group">
             <label for="textInput">Enter Text:</label>
-            <textarea id="textInput" placeholder="Type your text here..." rows="2">BACKLIT SIGN</textarea>
+            <textarea id="textInput" placeholder="Type your text here..." rows="2">125A</textarea>
             
             <div class="orientation-group">
               <div class="orientation-options">
@@ -738,7 +738,7 @@
 
           <div class="requirements-group">
             <label for="requirementsOutput">Copy&paste to "Add your personalization" box:</label>
-            <textarea id="requirementsOutput" rows="8" placeholder="Customer requirements will appear here...">1.Your Numbers or letters: BACKLIT SIGN
+            <textarea id="requirementsOutput" rows="8" placeholder="Customer requirements will appear here...">1.Your Numbers or letters: 125A
 2.Light Color Num: #1
 3.Face Color: #1
 4.Font Num: 
@@ -850,7 +850,7 @@
 
     // Update requirements text - 保留已输入的Font Num和Phone Num内容
     function updateRequirements() {
-      const text = textInput.value || "BACKLIT SIGN";
+      const text = textInput.value || "125A";
       const currentRequirements = requirementsOutput.value;
       
       // 提取当前Font Num后的内容
@@ -891,7 +891,7 @@
 
     // Render fonts function
     function renderFonts() {
-      const text = textInput.value || "BACKLIT SIGN";
+      const text = textInput.value || "125A";
       console.log('Rendering fonts with text:', text, 'light:', currentLight, 'material:', currentMaterial);
       
       fontListContainer.innerHTML = '';
